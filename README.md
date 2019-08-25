@@ -3,10 +3,10 @@
 ## Summary
 
 Oracle VirtualBox Open Source Edition, with custom build toolchain, letting build the solution on any Windows workstation.
-Official Oracle source code is optimized for its own infrastructure, which structure is not known, and the process is not documented.
-This version allows to compile Virtualbox on Windows 7, 8.1 or 10.
-Includes configurations for Virtualbox itself, and Virtualbox Guest Additions for Windows.
-Build host should have amd64 architecture.
+Official Oracle source code is optimized for Oracle own infrastructure, which structure is not known, and the process is not documented.
+
+This version allows to compile Virtualbox on Windows 7, 8.1 or any Windows 10. It includes configurations for Virtualbox itself, and Virtualbox Guest Additions for Windows.
+Build host should have `x64` architecture.
 
 ## Pre-requisites
 
@@ -49,7 +49,8 @@ Build host should have amd64 architecture.
 
 ## Compiling Virtualbox OSE under Windows
 
-x64 version of the system is required, Windows 7, 8.0, 8.1 or any Windows 10 are fit for the compilation process
+x64 version of the system is required, Windows 7, 8.0, 8.1 or any Windows 10 are fit for the compilation process.
+
 Use VirtualBox project root as a wolrking directory.
 
 ### Set VBOX_VER and other environment variables
@@ -76,13 +77,17 @@ set VBOX_VER_PUB=
 
 Depend on what's the target architecture you want to compile, run the following for amd64 target
 
-`set BUILD_TARGET_ARCH=amd64
-set PATH=%PATH%;%~dp0kBuild\bin\win.amd64`
+```
+set BUILD_TARGET_ARCH=amd64
+set PATH=%PATH%;%~dp0kBuild\bin\win.amd64
+```
 
 Or this one for x86 target
 
-`set BUILD_TARGET_ARCH=x86
-set PATH=%PATH%;%~dp0kBuild\bin\win.x86`
+```
+set BUILD_TARGET_ARCH=x86
+set PATH=%PATH%;%~dp0kBuild\bin\win.x86
+```
 
 ### Run configure.vbs script
 
@@ -90,24 +95,34 @@ set PATH=%PATH%;%~dp0kBuild\bin\win.x86`
 
 ### Set last configuration parameters and build the project
 
+Set last environment variables
+
 `call env.bat`
+
+Run kmake with default target
+
 `kmk`
 
 ### Register COM components allowing run and debug Virtualbox.exe
 
 For amd64 target set the following working directory
+
 `cd .\out\win.amd64\release\bin\`
 
 and this directory x86 respectively
+
 `cd .\out\win.x86\release\bin\`
 
 Register Virtualbox Windows COM DLLs
+
 `call comregister.cmd`
 
 Load debug versions of drivers
+
 `call loadall.cmd`
 
 Perform cleanup
+
 `del /q AutoConfig.kmk configure.log env.bat 2>nul`
 
 ## Compiling Virtualbox Guest Additions for Windows
@@ -131,7 +146,8 @@ You should set the following parameters to your LocalConfig.kmk, if you want to 
 ```VBOX_ONLY_ADDITIONS := 1
 VBOX_WITH_ADDITIONS_PACKING := 1
 VBOX_WITHOUT_HARDENING := 1
-VBOX_ADDITIONS_WINDOWS_ONLY := 1```
+VBOX_ADDITIONS_WINDOWS_ONLY := 1
+```
 
 
 
